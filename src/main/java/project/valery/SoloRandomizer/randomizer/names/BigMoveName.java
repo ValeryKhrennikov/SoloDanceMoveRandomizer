@@ -3,12 +3,16 @@ package project.valery.SoloRandomizer.randomizer.names;
 import org.springframework.stereotype.Component;
 
 @Component
-public enum BigNamesOfMove implements NamesOfMove {
-    AROUND_THE_WORLD(8),
-    APPLE_JACKS(2, 4, 6, 8);
+public enum BigMoveName implements MoveName {
+    AROUND_THE_WORLD(4,8),
+    APPLE_JACKS(4, 6, 8),
+    BOOGIE_DROP4(4,8),
+    BOX_STEP(4,8),
+    BREAK_FULL_TOBA(8),
+    BREAK_HALF(4,8);
     private final int[] counts;
 
-    BigNamesOfMove(int... counts) {
+    BigMoveName(int... counts) {
         this.counts = counts;
     }
 

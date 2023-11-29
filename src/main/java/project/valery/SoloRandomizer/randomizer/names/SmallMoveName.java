@@ -3,13 +3,29 @@ package project.valery.SoloRandomizer.randomizer.names;
 import org.springframework.stereotype.Component;
 
 @Component
-public enum SmallNamesOfMove implements NamesOfMove {
-    APPLE_JACKS(2, 4, 8),
+public enum SmallMoveName implements MoveName {
+    APPLE_JACKS(2, 4),
     BALL_STEP(1, 2, 3, 4),
-    BALL_STEP_BRUSH(2);
+    BALL_STEP_BRUSH(2),
+    BALL_STEP_KICK(2),
+    BALL_STEP_STEP(2),
+    BOOGIE_BACK(2,4),
+    BOOGIE_DROP4(4),
+    BOOGIE_DROP_FOR2(2,4),
+    BOOGIE_FORWARD(2,4),
+    BOOGIE_STEP(2,3,4),
+
+    BREAK_A_LEG(2,4),
+    BREAK_HALF(4),
+    BRUSH(1,2,3,4),
+    BRUSH_BALL_STEP(2,4),
+    BRUSH_HEEL(2,4),
+    BRUSH_SKIP(2,4),
+    BRUSH_STEP(2,4);
+
     private final int[] counts;
 
-    SmallNamesOfMove(int... counts) {
+    SmallMoveName(int... counts) {
         this.counts = counts;
     }
 
@@ -17,30 +33,19 @@ public enum SmallNamesOfMove implements NamesOfMove {
     public int[] getCountsArray() {
         return counts;
     }
+
     @Override
-    public String getType(){return "Small";}
+    public String getType() {
+        return "Small";
+    }
 }
 
 
-//    BALL_STEP_KICK,
-//    BALL_STEP_STEP,
-//    BALL_STEP4,
-//    BOOGIE_BACK,
-//    BOOGIE_DROP4,
-//    BOOGIE_DROP_FOR2,
-//    BOOGIE_FORWARD,
-//    BOOGIE_STEP,
-//    BOOGIE_STEP_FOR2,
-//    BOX_STEP,
-//    BREAK_A_LEG,
-//    BREAK_FULL_TOBA,
-//    BREAK_HALF,
-//    BRUSH,
-//    BRUSH_BALL_STEP,
-//    BRUSH_BRUSH,
-//    BRUSH_HEEL,
-//    BRUSH_SKIP,
-//    BRUSH_STEP,
+
+
+//    ,
+//    ,
+
 //    BUTTROLL,
 //    CAKEWALK,
 //    CAMELWALK,

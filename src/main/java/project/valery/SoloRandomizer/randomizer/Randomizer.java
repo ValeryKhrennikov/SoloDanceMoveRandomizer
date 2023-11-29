@@ -1,41 +1,63 @@
 package project.valery.SoloRandomizer.randomizer;
 
-import project.valery.SoloRandomizer.randomizer.names.BigNamesOfMove;
-import project.valery.SoloRandomizer.randomizer.names.NamesOfMove;
-import project.valery.SoloRandomizer.randomizer.names.SmallNamesOfMove;
+import project.valery.SoloRandomizer.randomizer.names.BigMoveName;
+import project.valery.SoloRandomizer.randomizer.names.MoveName;
+import project.valery.SoloRandomizer.randomizer.names.SmallMoveName;
 
 import java.util.*;
 
 public class Randomizer {
-    private final List<NamesOfMove> allMoves;
-    private final Map<NamesOfMove, Integer> usageCounts;
+    private final List<MoveName> allMoves;
+    private final List<MoveName> smallMoves;
+    private final List<MoveName> bigMoves;
+
+    private final Map<MoveName, Integer> usageCounts;
 
     public Randomizer() {
-        // Здесь инициализируйте список allMoves со всеми возможными движениями
+        // Initialize lists and add all possible moves
         allMoves = new ArrayList<>();
-        allMoves.addAll(List.of(BigNamesOfMove.values()));
-        allMoves.addAll(List.of(SmallNamesOfMove.values()));
+        allMoves.addAll(List.of(SmallMoveName.values()));
+        allMoves.addAll(List.of(BigMoveName.values()));
 
-        // Инициализируем счетчики использования имен
+        smallMoves = new ArrayList<>(List.of(SmallMoveName.values()));
+        bigMoves = new ArrayList<>(List.of(BigMoveName.values()));
+
+        // Initialize usage counts map
         usageCounts = new HashMap<>();
-        for (NamesOfMove move : allMoves) {
+        for (MoveName move : allMoves) {
             usageCounts.put(move, 0);
         }
     }
 
-    public List<Movement> getRandomMoves(int totalCounts) {
+    public List<Movement> getRandomMoves(int totalCounts, String moveType) {
         List<Movement> randomMoves = new ArrayList<>();
         Random random = new Random();
         int countsSoFar = 0;
 
+        List<MoveName> selectedMoves;
+        switch (moveType) {
+            case "ALL":
+                selectedMoves = allMoves;
+                break;
+            case "SMALL":
+                selectedMoves = smallMoves;
+                break;
+            case "BIG":
+                selectedMoves = bigMoves;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid Move Type");
+        }
+
         while (countsSoFar < totalCounts) {
-            NamesOfMove randomName = getNextRandomName(random);
-            boolean isLegChanged = random.nextBoolean();
-            String randomType = randomName.getType();
+            MoveName randomName = getNextRandomName(random, selectedMoves);
+
             int numberOfCounts = getRandomNumberOfCounts(randomName.getCountsArray(), random);
 
             // Check if adding the current movement exceeds the total counts
             if (countsSoFar + numberOfCounts <= totalCounts) {
+                boolean isLegChanged = random.nextBoolean();
+                String randomType = randomName.getType();
                 Movement movement = new Movement(randomName, isLegChanged, randomType, numberOfCounts);
                 randomMoves.add(movement);
                 countsSoFar += numberOfCounts;
@@ -47,7 +69,6 @@ public class Randomizer {
 
         return randomMoves;
     }
-
 
     public int getRandomNumberOfCounts(int[] array, Random random) {
         // Проверка на пустой массив
@@ -61,32 +82,34 @@ public class Randomizer {
         return array[randomIndex];
     }
 
-    private NamesOfMove getNextRandomName(Random random) {
-        List<NamesOfMove> availableMoves = new ArrayList<>();
+    private MoveName getNextRandomName(Random random, List<MoveName> availableMoves) {
+        List<MoveName> eligibleMoves = new ArrayList<>();
 
-        for (NamesOfMove move : allMoves) {
+        for (MoveName move : availableMoves) {
             int usageCount = usageCounts.get(move);
             int reducedProbability = Math.max(1, 1 << usageCount);
             if (random.nextDouble() < 1.0 / reducedProbability) {
-                availableMoves.add(move);
+                eligibleMoves.add(move);
             }
         }
 
-        if (availableMoves.isEmpty()) {
-            // Если все имена были использованы, выбираем случайное из всех
-            return allMoves.get(random.nextInt(allMoves.size()));
-        } else {
-            // Выбираем случайное из доступных имен
+        if (eligibleMoves.isEmpty()) {
+            // If all names have been used, choose randomly from available moves
             return availableMoves.get(random.nextInt(availableMoves.size()));
+        } else {
+            // Choose randomly from eligible names
+            return eligibleMoves.get(random.nextInt(eligibleMoves.size()));
         }
     }
 
-    public static void main(java.lang.String[] args) {
+    public static void main(String[] args) {
         Randomizer randomizer = new Randomizer();
-        List<Movement> randomMoves = randomizer.getRandomMoves(10);
+        List<Movement> randomMoves = randomizer.getRandomMoves(12,"BIG");
 
         for (Movement movement : randomMoves) {
             System.out.println(movement);
         }
     }
+
+
 }
