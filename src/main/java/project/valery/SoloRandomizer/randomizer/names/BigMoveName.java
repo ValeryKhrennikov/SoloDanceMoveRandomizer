@@ -9,7 +9,8 @@ public enum BigMoveName implements MoveName {
     BOOGIE_DROP4(4,8),
     BOX_STEP(4,8),
     BREAK_FULL_TOBA(8),
-    BREAK_HALF(4,8);
+    BREAK_HALF(4,8),
+    BUTTROLL(4,8);
     private final int[] counts;
 
     BigMoveName(int... counts) {

@@ -58,6 +58,7 @@ public class Randomizer {
             if (countsSoFar + numberOfCounts <= totalCounts) {
                 boolean isLegChanged = random.nextBoolean();
                 String randomType = randomName.getType();
+
                 Movement movement = new Movement(randomName, isLegChanged, randomType, numberOfCounts);
                 randomMoves.add(movement);
                 countsSoFar += numberOfCounts;
@@ -104,7 +105,7 @@ public class Randomizer {
 
     public static void main(String[] args) {
         Randomizer randomizer = new Randomizer();
-        List<Movement> randomMoves = randomizer.getRandomMoves(12,"BIG");
+        List<Movement> randomMoves = randomizer.getRandomMoves(7,"ALL");
 
         for (Movement movement : randomMoves) {
             System.out.println(movement);

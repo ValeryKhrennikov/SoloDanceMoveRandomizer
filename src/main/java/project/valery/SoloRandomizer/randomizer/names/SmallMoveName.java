@@ -21,7 +21,8 @@ public enum SmallMoveName implements MoveName {
     BRUSH_BALL_STEP(2,4),
     BRUSH_HEEL(2,4),
     BRUSH_SKIP(2,4),
-    BRUSH_STEP(2,4);
+    BRUSH_STEP(2,4),
+    BUTTROLL(2,4);
 
     private final int[] counts;
 
@@ -40,13 +41,6 @@ public enum SmallMoveName implements MoveName {
     }
 }
 
-
-
-
-//    ,
-//    ,
-
-//    BUTTROLL,
 //    CAKEWALK,
 //    CAMELWALK,
 //    CHARLESTON_40S,
@@ -163,4 +157,4 @@ public enum SmallMoveName implements MoveName {
 //    TRIPLESTEP,
 //    TWISTS_QUICK,
 //    TWISTS_SLOW
-//}
+
