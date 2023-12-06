@@ -103,14 +103,14 @@ public class Randomizer {
         }
     }
 
-    public static void main(String[] args) {
-        Randomizer randomizer = new Randomizer();
-        List<Movement> randomMoves = randomizer.getRandomMoves(7,"ALL");
-
-        for (Movement movement : randomMoves) {
-            System.out.println(movement);
-        }
-    }
+//    public static void main(String[] args) {
+//        Randomizer randomizer = new Randomizer();
+//        List<Movement> randomMoves = randomizer.getRandomMoves(7, "ALL");
+//
+//        for (Movement movement : randomMoves) {
+//            System.out.println(movement);
+//        }
+//    }
 
 
 }

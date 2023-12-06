@@ -6,10 +6,10 @@ import project.valery.SoloRandomizer.randomizer.names.MoveName;
 //@Data
 @Component
 public class Movement {
-    private MoveName name;
-    private boolean isLegChanged;
-    private String typeOfMove; // "Big" или "Small"
-    private int numberOfCounts;
+    private final MoveName name;
+    private final boolean isLegChanged;
+    private final String typeOfMove; // "Big" или "Small"
+    private final int numberOfCounts;
 
     public Movement(MoveName name, boolean isLegChanged, String typeOfMove, int numberOfCounts) {
         this.name = name;
