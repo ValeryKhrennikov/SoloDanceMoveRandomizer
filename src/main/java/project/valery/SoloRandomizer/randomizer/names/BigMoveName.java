@@ -1,8 +1,5 @@
 package project.valery.SoloRandomizer.randomizer.names;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public enum BigMoveName implements MoveName {
     AROUND_THE_WORLD(4,8),
     APPLE_JACKS(4, 6, 8),

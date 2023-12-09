@@ -1,10 +1,8 @@
 package project.valery.SoloRandomizer.randomizer;
 
-import org.springframework.stereotype.Component;
 import project.valery.SoloRandomizer.randomizer.names.MoveName;
 
-//@Data
-@Component
+
 public class Movement {
     private final MoveName name;
     private final boolean isLegChanged;
@@ -20,7 +18,7 @@ public class Movement {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return name +
                 " on " + numberOfCounts;
 

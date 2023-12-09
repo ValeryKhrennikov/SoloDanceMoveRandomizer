@@ -1,11 +1,12 @@
 package project.valery.SoloRandomizer.randomizer;
 
+import org.springframework.stereotype.Component;
 import project.valery.SoloRandomizer.randomizer.names.BigMoveName;
 import project.valery.SoloRandomizer.randomizer.names.MoveName;
 import project.valery.SoloRandomizer.randomizer.names.SmallMoveName;
 
 import java.util.*;
-
+@Component
 public class Randomizer {
     private final List<MoveName> allMoves;
     private final List<MoveName> smallMoves;
@@ -29,8 +30,8 @@ public class Randomizer {
         }
     }
 
-    public List<Movement> getRandomMoves(int totalCounts, String moveType) {
-        List<Movement> randomMoves = new ArrayList<>();
+    public String getRandomMovesAsString(int totalCounts, String moveType) {
+        StringBuilder result = new StringBuilder();
         Random random = new Random();
         int countsSoFar = 0;
 
@@ -60,7 +61,7 @@ public class Randomizer {
                 String randomType = randomName.getType();
 
                 Movement movement = new Movement(randomName, isLegChanged, randomType, numberOfCounts);
-                randomMoves.add(movement);
+                result.append(movement.toString()).append("\n");
                 countsSoFar += numberOfCounts;
 
                 // Increase the usage count for the chosen name
@@ -68,8 +69,9 @@ public class Randomizer {
             }
         }
 
-        return randomMoves;
+        return result.toString();
     }
+
 
     public int getRandomNumberOfCounts(int[] array, Random random) {
         // Проверка на пустой массив
