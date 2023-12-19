@@ -35,20 +35,12 @@ public class Randomizer {
         Random random = new Random();
         int countsSoFar = 0;
 
-        List<MoveName> selectedMoves;
-        switch (moveType) {
-            case "ALL":
-                selectedMoves = allMoves;
-                break;
-            case "SMALL":
-                selectedMoves = smallMoves;
-                break;
-            case "BIG":
-                selectedMoves = bigMoves;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid Move Type");
-        }
+        List<MoveName> selectedMoves = switch (moveType) {
+            case "ALL" -> allMoves;
+            case "SMALL" -> smallMoves;
+            case "BIG" -> bigMoves;
+            default -> throw new IllegalArgumentException("Invalid Move Type");
+        };
 
         while (countsSoFar < totalCounts) {
             MoveName randomName = getNextRandomName(random, selectedMoves);
@@ -61,7 +53,7 @@ public class Randomizer {
                 String randomType = randomName.getType();
 
                 Movement movement = new Movement(randomName, isLegChanged, randomType, numberOfCounts);
-                result.append(movement.toString()).append("\n");
+                result.append(movement).append("\n");
                 countsSoFar += numberOfCounts;
 
                 // Increase the usage count for the chosen name
@@ -69,7 +61,7 @@ public class Randomizer {
             }
         }
 
-        return result.toString();
+        return "totalCounts:"+totalCounts+"\n"+ result;
     }
 
 
@@ -105,14 +97,12 @@ public class Randomizer {
         }
     }
 
-//    public static void main(String[] args) {
-//        Randomizer randomizer = new Randomizer();
-//        List<Movement> randomMoves = randomizer.getRandomMoves(7, "ALL");
-//
-//        for (Movement movement : randomMoves) {
-//            System.out.println(movement);
-//        }
-//    }
+    public static void main(String[] args) {
+        Randomizer randomizer = new Randomizer();
+        String randomMoves = randomizer.getRandomMovesAsString(7, "ALL");
+
+        System.out.println(randomMoves);
+    }
 
 
 }

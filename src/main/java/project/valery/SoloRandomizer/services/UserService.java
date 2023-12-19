@@ -63,14 +63,17 @@ public class UserService {
 
         Sequence newSequence = new Sequence();
         newSequence.setSavedSequence(randomMovesAsString);
+        newSequence.setUser(user);
+
 
         user.getSavedSequences().add(newSequence);
-//        newSequence.setUser(user); // Установка владельца последовательности
 
         userRepository.save(user);
 
         return newSequence;
     }
+
+
 
     public Sequence getRandomSequence(int totalCounts, String moveType) {
         String randomMovesAsString = randomizer.getRandomMovesAsString(totalCounts, moveType);

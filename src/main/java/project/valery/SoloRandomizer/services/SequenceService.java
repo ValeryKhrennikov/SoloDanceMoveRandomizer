@@ -30,4 +30,7 @@ public class SequenceService {
     public void deleteSequence(Long id) {
         sequenceRepository.deleteById(id);
     }
+    public void deleteAllSequences() {
+        sequenceRepository.deleteAll();
+    }
 }

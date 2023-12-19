@@ -37,4 +37,9 @@ public class SequenceController {
         sequenceService.deleteSequence(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @DeleteMapping("/delete-all-sequences")
+    public ResponseEntity<Void> deleteAllSequences() {
+        sequenceService.deleteAllSequences();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
