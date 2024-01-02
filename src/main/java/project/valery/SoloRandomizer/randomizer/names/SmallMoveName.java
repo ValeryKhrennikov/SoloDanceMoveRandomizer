@@ -7,8 +7,8 @@ public enum SmallMoveName implements MoveName {
     BALL_STEP_KICK(2),
     BALL_STEP_STEP(2),
     BOOGIE_BACK(2,4),
-    BOOGIE_DROP4(4),
-    BOOGIE_DROP_FOR2(2,4),
+    BOOGIE_DROP_4(4),
+    BOOGIE_DROP_FOR_2(2,4),
     BOOGIE_FORWARD(2,4),
     BOOGIE_STEP(2,3,4),
 

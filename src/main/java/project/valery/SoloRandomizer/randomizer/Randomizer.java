@@ -61,11 +61,11 @@ public class Randomizer {
             }
         }
 
-        return "totalCounts:"+totalCounts+"\n"+ result;
+        return "Total counts for the sequence is "+totalCounts+"\n"+ result;
     }
 
 
-    public int getRandomNumberOfCounts(int[] array, Random random) {
+    int getRandomNumberOfCounts(int[] array, Random random) {
         // Проверка на пустой массив
         if (array == null || array.length == 0) {
             throw new IllegalArgumentException("Массив не должен быть пустым");
@@ -77,10 +77,10 @@ public class Randomizer {
         return array[randomIndex];
     }
 
-    private MoveName getNextRandomName(Random random, List<MoveName> availableMoves) {
+     MoveName getNextRandomName(Random random, List<MoveName> selectedMoves) {
         List<MoveName> eligibleMoves = new ArrayList<>();
 
-        for (MoveName move : availableMoves) {
+        for (MoveName move : selectedMoves) {
             int usageCount = usageCounts.get(move);
             int reducedProbability = Math.max(1, 1 << usageCount);
             if (random.nextDouble() < 1.0 / reducedProbability) {
@@ -90,7 +90,7 @@ public class Randomizer {
 
         if (eligibleMoves.isEmpty()) {
             // If all names have been used, choose randomly from available moves
-            return availableMoves.get(random.nextInt(availableMoves.size()));
+            return selectedMoves.get(random.nextInt(selectedMoves.size()));
         } else {
             // Choose randomly from eligible names
             return eligibleMoves.get(random.nextInt(eligibleMoves.size()));
@@ -98,11 +98,9 @@ public class Randomizer {
     }
 
     public static void main(String[] args) {
-        Randomizer randomizer = new Randomizer();
-        String randomMoves = randomizer.getRandomMovesAsString(7, "ALL");
+        Randomizer randomizer= new Randomizer();
 
-        System.out.println(randomMoves);
+        System.out.println(randomizer.getRandomMovesAsString(10,"SMALL"));
+
     }
-
-
 }

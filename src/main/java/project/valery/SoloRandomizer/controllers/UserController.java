@@ -55,10 +55,20 @@ public class UserController {
         userService.deleteAllUsers();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PostMapping("/add-sequence-by-username/{username}")
+    public ResponseEntity<Sequence> addSequenceToUserByUsername(
+            @PathVariable(name = "username") String username,
+            @RequestParam int totalCounts,
+            @RequestParam String moveType
+    ) {
+        Sequence newSequence = userService.addSequenceToUserByUsername(username, totalCounts, moveType);
+        return new ResponseEntity<>(newSequence, HttpStatus.CREATED);
+    }
+
 
     @PostMapping("/{userId}/add-sequence")
     public ResponseEntity<Sequence> addSequenceToUser(
-            @PathVariable Long userId,
+            @PathVariable(name = "userId") Long userId,
             @RequestParam int totalCounts,
             @RequestParam String moveType
     ) {

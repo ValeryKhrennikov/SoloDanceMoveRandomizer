@@ -55,6 +55,23 @@ public class UserService {
         userRepository.deleteAll();
     }
 
+    public Sequence addSequenceToUserByUsername(String username, int totalCounts, String moveType) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username));
+
+        String randomMovesAsString = randomizer.getRandomMovesAsString(totalCounts, moveType);
+
+        Sequence newSequence = new Sequence();
+        newSequence.setSavedSequence(randomMovesAsString);
+        newSequence.setUser(user);
+
+        user.getSavedSequences().add(newSequence);
+
+        userRepository.save(user);
+
+        return newSequence;
+    }
+
     public Sequence addSequenceToUser(Long userId, int totalCounts, String moveType) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
@@ -72,8 +89,6 @@ public class UserService {
 
         return newSequence;
     }
-
-
 
     public Sequence getRandomSequence(int totalCounts, String moveType) {
         String randomMovesAsString = randomizer.getRandomMovesAsString(totalCounts, moveType);

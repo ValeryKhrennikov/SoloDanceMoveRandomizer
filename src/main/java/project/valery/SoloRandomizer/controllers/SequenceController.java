@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.valery.SoloRandomizer.entities.Sequence;
-import project.valery.SoloRandomizer.exceptions.SequenceNotFoundException;
 import project.valery.SoloRandomizer.services.SequenceService;
 
 import java.util.List;
@@ -29,7 +28,11 @@ public class SequenceController {
     @GetMapping("/{id}")
     public ResponseEntity<Sequence> getSequenceById(@PathVariable Long id) {
         Sequence sequence = sequenceService.getSequenceById(id);
-        return new ResponseEntity<>(sequence, HttpStatus.OK);
+        if (sequence != null) {
+            return new ResponseEntity<>(sequence, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")
